@@ -113,6 +113,12 @@ function drawBall() {
     ctx.closePath();
 };
 
+// TRACKING THE POINTS
+
+function trackingThePoints() {
+    
+};
+
 // DRAW
 
 function draw() {
