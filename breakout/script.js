@@ -120,7 +120,12 @@ function trackingThePoints() {
         for (let r = 0; r < bricksRow; r++) {
             const brick = bricks[c][r];
             
-            console.log(brick);
+            /* if (brick.status === 0) {
+                points += 10;
+                break;
+            } else {
+                points = 0;
+            }; */
         };
     };
 };
