@@ -12,7 +12,8 @@ let rightPressed = false;
 // BALL
 let ballRadius = 22;
 let ballX = (canvas.width - ballRadius) / 2, ballY = canvas.height - 70;
-let ballXDir = 2, ballYDir = -2;
+let ballXDirArr = [2, -2, 1, 3, -1];
+let ballXDir = ballXDirArr[Math.floor(Math.random() * ballXDirArr.length)], ballYDir = -2;
 // BRICKS
 const bricks = [];
 let bricksColumn = 10;
@@ -158,7 +159,7 @@ function draw() {
             ballX = (canvas.width - ballRadius) / 2;
             ballY = canvas.height - 70;
             lives--;
-            ballXDir = -2; 
+            ballXDir = ballXDirArr[Math.floor(Math.random() * ballXDirArr.length)]; 
             ballYDir = -2;
             paddleX = (canvas.width - paddleWidth) / 2;
         } else {
