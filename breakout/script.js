@@ -81,9 +81,7 @@ function detectCollision() {
     for (let c = 0; c < bricksColumn; c++) {
         for (let r = 0; r < bricksRow; r++) {
             const brick = bricks[c][r];
-
             if (brick.status > 0) {
-
                 if (ballX > brick.x - ballRadius && ballX < brick.x + brickWidth && ballY > brick.y - ballRadius && ballY < brick.y + brickHeight) {
                     ballYDir = -ballYDir;
                     brick.status--;
