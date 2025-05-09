@@ -31,7 +31,7 @@ for (let c = 0; c < bricksColumn; c++) {
 };
 // POINTS AND LIVES
 let points = 0;
-let lives = 0;
+let lives = 3;
 
 // DRAW POINTS
 
@@ -140,12 +140,31 @@ function draw() {
         };
     };
 
+    // COLLISION BETWEEN THE BALL AND THE PADDLE
+    if (ballY > paddleY - ballRadius && ballX > paddleX && ballX < paddleX + paddleWidth) {
+        ballYDir = -ballYDir;
+    };
+
     // HANDLING THE COLLISION BETWEEN THE BALL AND THE WALLS
-    if (ballY < 0 || ballY > canvas.height - ballRadius) {
+    if (ballY < 0) {
         ballYDir = -ballYDir;
     };
     if (ballX < 0 || ballX > canvas.width - ballRadius) {
         ballXDir = -ballXDir;
+    };
+
+    if (ballY > canvas.height + 20) {
+        if (lives > 0) {
+            ballX = (canvas.width - ballRadius) / 2;
+            ballY = canvas.height - 70;
+            lives--;
+            ballXDir = -2; 
+            ballYDir = -2;
+            paddleX = (canvas.width - paddleWidth) / 2;
+        } else {
+            alert('Opps, you lost. Try again!!!');
+            document.location.reload();
+        };
     };
 
     // REQUESTING A FRAME ANIMATION
