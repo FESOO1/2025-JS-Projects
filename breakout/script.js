@@ -40,7 +40,7 @@ function drawPoints() {
     ctx.beginPath();
     ctx.font = '1rem sans-serif';
     ctx.fillStyle = 'blue';
-    ctx.fillText(`POINTS: ${points}`, 15,30);
+    ctx.fillText(`POINTS: ${points}`, 15, 30);
 };
 
 // DRAW LIVES
@@ -49,7 +49,7 @@ function drawLives() {
     ctx.beginPath();
     ctx.font = '1rem sans-serif';
     ctx.fillStyle = 'red';
-    ctx.fillText(`LIVES: ${lives}`, canvas.width - 80,30);
+    ctx.fillText(`LIVES: ${lives}`, canvas.width - 80, 30);
 };
 
 // DRAW BRICKS
@@ -116,7 +116,13 @@ function drawBall() {
 // TRACKING THE POINTS
 
 function trackingThePoints() {
-    
+    for (let c = 0; c < bricksColumn; c++) {
+        for (let r = 0; r < bricksRow; r++) {
+            const brick = bricks[c][r];
+            
+            console.log(brick);
+        };
+    };
 };
 
 // DRAW
@@ -129,6 +135,7 @@ function draw() {
     drawBricks();
     drawPoints();
     drawLives();
+    trackingThePoints();
 
     // MOVING THE BALL
     ballX += ballXDir;
@@ -163,7 +170,7 @@ function draw() {
             ballX = (canvas.width - ballRadius) / 2;
             ballY = canvas.height - 70;
             lives--;
-            ballXDir = ballXDirArr[Math.floor(Math.random() * ballXDirArr.length)]; 
+            ballXDir = ballXDirArr[Math.floor(Math.random() * ballXDirArr.length)];
             ballYDir = -2;
             paddleX = (canvas.width - paddleWidth) / 2;
         } else {
