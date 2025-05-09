@@ -21,7 +21,7 @@ let brickWidth = 80;
 let brickHeight = 30;
 let brickPaddle = 15;
 let brickOffsetLeft = (canvas.width - (brickWidth * bricksColumn)) / 2;
-let brickOffsetTop = 30;
+let brickOffsetTop = 50;
 
 for (let c = 0; c < bricksColumn; c++) {
     bricks[c] = [];
@@ -29,10 +29,31 @@ for (let c = 0; c < bricksColumn; c++) {
         bricks[c][r] = { x: 0, y: 0, status: 2 };
     };
 };
+// POINTS AND LIVES
+let points = 0;
+let lives = 0;
+
+// DRAW POINTS
+
+function drawPoints() {
+    ctx.beginPath();
+    ctx.font = '1rem sans-serif';
+    ctx.fillStyle = 'blue';
+    ctx.fillText(`POINTS: ${points}`, 15,30);
+};
+
+// DRAW LIVES
+
+function drawLives() {
+    ctx.beginPath();
+    ctx.font = '1rem sans-serif';
+    ctx.fillStyle = 'red';
+    ctx.fillText(`LIVES: ${lives}`, canvas.width - 80,30);
+};
 
 // DRAW BRICKS
 
-function drawbricks() {
+function drawBricks() {
     for (let c = 0; c < bricksColumn; c++) {
         for (let r = 0; r < bricksRow; r++) {
             const brickX = c * (brickWidth + brickPaddle) + brickOffsetLeft;
@@ -100,7 +121,9 @@ function draw() {
     drawPaddle();
     drawBall();
     detectCollision();
-    drawbricks();
+    drawBricks();
+    drawPoints();
+    drawLives();
 
     // MOVING THE BALL
     ballX += ballXDir;
