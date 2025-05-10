@@ -86,7 +86,7 @@ function drawBricks() {
 
 function makeHitSound(audioSource) {
     const audio = document.createElement('audio');
-    audio.volume = 0.2;
+    audio.volume = 0.1;
     audio.src = audioSource;
     audio.play();
 };
