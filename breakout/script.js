@@ -10,7 +10,7 @@ let paddleSpeed = 4;
 let leftPressed = false;
 let rightPressed = false;
 // BALL
-let ballRadius = 22;
+let ballRadius = 20;
 let ballX = (canvas.width - ballRadius) / 2, ballY = canvas.height - 70;
 let ballXDirArr = [2, -2, 1, 3, -1];
 let ballXDir = ballXDirArr[Math.floor(Math.random() * ballXDirArr.length)], ballYDir = -2;
@@ -162,15 +162,15 @@ function draw() {
         ballYDir = -ballYDir;
 
         // BALL X
-        if (ballX > paddleX && ballX < paddleX + 20) {
+        if (ballX > paddleX - ballRadius && ballX < paddleX + 20) {
             ballXDir = -2;
-        } else if (ballX > paddleX + 20 && ballX < paddleX + 40) {
+        } else if (ballX > paddleX && ballX < paddleX + 30) {
             ballXDir = -1;
-        } else if (ballX > paddleX + 40 && ballX < paddleX + 60) {
+        } else if (ballX > paddleX && ballX < paddleX + 55) {
             ballXDir = 0;
-        } else if (ballX > paddleX + 60 && ballX < paddleY + 80) {
+        } else if (ballX > paddleX && ballX < paddleX + 70) {
             ballXDir = 1;
-        } else if (ballX > paddleX + 80 && ballX < paddleY + 100) {
+        } else if (ballX > paddleX && ballX < paddleX + 100) {
             ballXDir = 2;
         };
     };
@@ -192,8 +192,9 @@ function draw() {
             ballYDir = -2;
             paddleX = (canvas.width - paddleWidth) / 2;
         } else {
-            alert('Opps, you lost. Try again!!!');
+            lives = 3;
             document.location.reload();
+            alert('Opps, you lost. Try again!!!');
         };
     };
 
@@ -206,6 +207,7 @@ draw();
 // PADDLE MOVEMENT
 document.addEventListener('keydown', handleKeyDown);
 document.addEventListener('keyup', handleKeyUp);
+document.addEventListener('mousemove', handleMouseMove);
 
 function handleKeyDown(e) {
     if (e.key === 'ArrowLeft' || e.key === 'Left') {
@@ -220,5 +222,11 @@ function handleKeyUp(e) {
         leftPressed = false;
     } else if (e.key === 'ArrowRight' || e.key === 'Right') {
         rightPressed = false;
+    };
+};
+
+function handleMouseMove(e) {
+    if (paddleX > 5 || paddleX < canvas.width - (paddleWidth + 5)) {
+        paddleX = e.clientX - (paddleWidth / 2);
     };
 };
