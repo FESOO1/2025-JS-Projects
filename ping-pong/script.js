@@ -1,3 +1,7 @@
+// MAIN
+const main = document.querySelector('main');
+
+// CANVAS
 const canvas = document.querySelector('canvas');
 canvas.setAttribute('width', (window.innerWidth - 2) + 'px');
 canvas.setAttribute('height', (window.innerHeight - 4) + 'px');
@@ -27,6 +31,8 @@ let ballSize = 25;
 let ballX = 40, ballY = (canvas.height - ballSize) / 2;
 let ballYDirArr = [4, -4];
 let ballXDir = 4, ballYDir = ballYDirArr[Math.floor(Math.random() * ballYDirArr.length)];
+// GAME
+let isGameStarted = false;
 
 // DRAW PLAYER ONE
 
@@ -86,6 +92,14 @@ function drawTheBall() {
     ctx.closePath();
 };
 
+// HANDLE SOUND EFFECT
+
+function handleSoundEffect() {
+    const audio = document.createElement('audio');
+    audio.src = './assets/ball-hit.mp3';
+    audio.play();
+};
+
 // DRAW
 
 function draw() {
@@ -109,11 +123,13 @@ function draw() {
     // PLAYER1 BALL AND PADDLE COLLISION
     if (ballX < player1PosX + player1Width && ballY > player1PosY && ballY < player1PosY + player1Height) {
         ballXDir = -ballXDir;
+        handleSoundEffect();
     };
 
     // PLAYER2 BALL AND PADDLE COLLISION
     if (ballX > player2PosX - player1Width && ballY > player2PosY && ballY < player2PosY + player2Height) {
         ballXDir = -ballXDir;
+        handleSoundEffect();
     };
 
     // PLAYER1 MOVEMENT
@@ -137,10 +153,37 @@ function draw() {
         };
     };
 
+
+    // PLAYERS GAINING POINTS
+    if (ballX < -10) {
+        player2Points++;
+        ballX = canvas.width - 80;
+        ballY = (canvas.height - ballSize) / 2;
+        player2PosY = (canvas.height - player2Height) / 2;
+        player1PosY = (canvas.height - player1Height) / 2;
+        ballYDir = ballYDirArr[Math.floor(Math.random() * ballYDirArr.length)];
+    } else if (ballX > canvas.width + 10) {
+        player1Points++;
+        ballX = 40;
+        ballY = (canvas.height - ballSize) / 2;
+        player2PosY = (canvas.height - player2Height) / 2;
+        player1PosY = (canvas.height - player1Height) / 2;
+        ballYDir = ballYDirArr[Math.floor(Math.random() * ballYDirArr.length)];
+    };
+
+    // CHECKING IF THE GAME HAS BEEN WON
+    if (player1Points === 11) {
+        player1Points = 0;
+        alert('Congratulations, Player1 won the game...');
+        document.location.reload();
+    } else if (player2Points === 11) {
+        player2Points = 0;
+        alert('Congratulations, Player2 won the game...');
+        document.location.reload();
+    };
+
     requestAnimationFrame(draw);
 };
-
-draw();
 
 // HANDLE THE KEY PRESSES
 document.addEventListener('keydown', handleKeyDown);
@@ -157,6 +200,13 @@ function handleKeyDown(e) {
         upPressed = true;
     } else if (e.key === 'ArrowDown' || e.key === 'Down') {
         downPressed = true;
+    };
+
+    // START THE GAME
+    if (isGameStarted === false && e.key === ' ') {
+        isGameStarted = true;
+        main.classList.add('main-hidden');
+        setTimeout(draw(), 300);
     };
 };
 

@@ -12,7 +12,27 @@ body {
     min-height: 100vh;
 }
 
-/* canvas {
-    border: 4px solid #201826;
-    border-top: 0;
-} */
+/* MAIN */
+
+main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    transition: opacity 300ms;
+}
+
+.main-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.main-paragraph {
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
