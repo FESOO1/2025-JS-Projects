@@ -160,6 +160,19 @@ function draw() {
     // COLLISION BETWEEN THE BALL AND THE PADDLE
     if (ballY > paddleY - ballRadius && ballX > paddleX && ballX < paddleX + paddleWidth) {
         ballYDir = -ballYDir;
+
+        // BALL X
+        if (ballX > paddleX && ballX < paddleX + 20) {
+            ballXDir = -2;
+        } else if (ballX > paddleX + 20 && ballX < paddleX + 40) {
+            ballXDir = -1;
+        } else if (ballX > paddleX + 40 && ballX < paddleX + 60) {
+            ballXDir = 0;
+        } else if (ballX > paddleX + 60 && ballX < paddleY + 80) {
+            ballXDir = 1;
+        } else if (ballX > paddleX + 80 && ballX < paddleY + 100) {
+            ballXDir = 2;
+        };
     };
 
     // HANDLING THE COLLISION BETWEEN THE BALL AND THE WALLS
