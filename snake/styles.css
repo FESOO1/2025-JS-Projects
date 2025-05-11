@@ -11,9 +11,3 @@ body {
     align-items: center;
     min-height: 100vh;
 }
-
-/* CANVAS */
-
-canvas {
-    border: 1px solid white;
-}
