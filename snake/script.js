@@ -22,17 +22,32 @@ for (let c = 0; c < mapColumn; c++) {
     };
 };
 
+map[1][1].status = 1;
+map[6][1].status = 1;
+map[6][5].status = 1;
+map[1][5].status = 1;
+
+// DRAW MAP
+
 function drawMap() {
     mapDirX = 0;
     mapDirY = 0;
     for (let c = 0; c < mapColumn; c++) {
         for (let r = 0; r < mapRow; r++) {
-            ctx.beginPath();
-            ctx.lineWidth = 0.07;
-            ctx.strokeRect(map[c][r].x, map[c][r].y, mapPieceSize, mapPieceSize);
-            ctx.strokeStyle = 'rgba(255,255,255,0.8)';
-            ctx.fill();
-            ctx.closePath();
+            if (map[c][r].status === 0) {
+                ctx.beginPath();
+                ctx.lineWidth = 0.07;
+                ctx.strokeRect(map[c][r].x, map[c][r].y, mapPieceSize, mapPieceSize);
+                ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+                ctx.fill();
+                ctx.closePath();
+            } else if (map[c][r].status === 1) {
+                ctx.beginPath();
+                ctx.fillStyle = 'rgba(255,255,255,0.8)';
+                ctx.fillRect(map[c][r].x, map[c][r].y, mapPieceSize, mapPieceSize);
+                ctx.fill();
+                ctx.closePath();  
+            };
 
             mapDirX += mapPieceSize;
             map[c][r].x = mapDirX;
@@ -58,12 +73,27 @@ function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
 
+// DETECT COLLISION
+
+function detectCollision() {
+    for (let c = 0; c < map.length; c++) {
+        for (let r = 0; r < map[c].length; r++) {
+            if (map[c][r].status === 1) {
+                if (snakeX === map[c][r].x && snakeY === map[c][r].y) {
+                    map[c][r].status = 0;
+                };
+            };
+        };
+    };
+};
+
 // DRAW
 
 function draw() {
     clearCanvas();
     drawMap();
     drawSnake();
+    detectCollision();
 
     // HANDLE THE SNAKE MOVEMENT
 
