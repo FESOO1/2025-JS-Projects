@@ -67,43 +67,31 @@ function draw() {
     clearTheCanvas();
     drawTheSnake();
     drawTheMap();
+
+    requestAnimationFrame(draw);
 };
 
-setInterval(draw, 100);
+draw();
 
 // HANDLE THE KEYS
 document.addEventListener('keydown', handlePress);
 
 function handlePress(e) {
     if (e.key === 'ArrowUp' || e.key === 'Up') {
-        if (snakeDir === 'up' || snakeDir === 'left' || snakeDir === 'right') {
-            if (snakeY > 0) {
-                snakeY -= snakeSpeed;
-            };
-            snakeDir = 'up';
+        if (snakeY > 0) {
+            snakeY -= snakeSpeed;
         };
     } else if (e.key === 'ArrowDown' || e.key === 'Down') {
-        if (snakeDir === 'bottom' || snakeDir === 'left' || snakeDir === 'right') {
-            if (snakeY > 0) {
-                snakeY += snakeSpeed;
-            };
-            snakeDir = 'bottom';
+        if (snakeY < canvas.height - snakeSpeed) {
+            snakeY += snakeSpeed;
         };
     } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
-        if (snakeDir === 'bottom' || snakeDir === 'up' || snakeDir === 'right') {
-            if (snakeY > 0) {
-                snakeX -= snakeSpeed;
-            };
-            snakeDir = 'left';
+        if (snakeX > 0) {
+            snakeX -= snakeSpeed;
         };
     } else if (e.key === 'ArrowRight' || e.key === 'Right') {
-        if (snakeDir === 'bottom' || snakeDir === 'up' || snakeDir === 'right') {
-            if (snakeY > 0) {
-                snakeX += snakeSpeed;
-            };
-            snakeDir = 'right';
+        if (snakeX < canvas.width - snakeSize) {
+            snakeX += snakeSpeed;
         };
     };
-
-    console.log(e.key);
 };
