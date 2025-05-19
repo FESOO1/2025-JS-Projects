@@ -3,10 +3,10 @@ const ctx = canvas.getContext('2d');
 // MAP
 const map = {
     map: [
-        [{x: 0, y: 0, status: 0}, {x: 0, y: 0, status: 0}, {x: 0, y: 0, status: 0}, {x: 0, y: 0, status: 0}],
-        [{x: 0, y: 0, status: 0}, {x: 0, y: 0, status: 0}, {x: 0, y: 0, status: 0}, {x: 0, y: 0, status: 0}],
-        [{x: 0, y: 0, status: 0}, {x: 0, y: 0, status: 0}, {x: 0, y: 0, status: 0}, {x: 0, y: 0, status: 0}],
-        [{x: 0, y: 0, status: 0}, {x: 0, y: 0, status: 0}, {x: 0, y: 0, status: 0}, {x: 0, y: 0, status: 0}]
+        [{x: 0, y: 0, pointText: 0}, {x: 0, y: 0, pointText: 0}, {x: 0, y: 0, pointText: 0}, {x: 0, y: 0, pointText: 0}],
+        [{x: 0, y: 0, pointText: 0}, {x: 0, y: 0, pointText: 0}, {x: 0, y: 0, pointText: 0}, {x: 0, y: 0, pointText: 0}],
+        [{x: 0, y: 0, pointText: 0}, {x: 0, y: 0, pointText: 0}, {x: 0, y: 0, pointText: 0}, {x: 0, y: 0, pointText: 0}],
+        [{x: 0, y: 0, pointText: 0}, {x: 0, y: 0, pointText: 0}, {x: 0, y: 0, pointText: 0}, {x: 0, y: 0, pointText: 0}]
     ],
     mapPositions: {
         mapY: 0,
@@ -28,9 +28,17 @@ function drawTheMap() {
             const y = map.map[c][r].y;
             const x = map.map[c][r].x;
             
+            // STROKE
             ctx.beginPath();
             ctx.strokeStyle = 'white';
             ctx.strokeRect(map.mapPositions.mapX, map.mapPositions.mapY, map.mapSize.width, map.mapSize.height);
+            ctx.closePath();
+
+            // TEXT
+            ctx.beginPath();
+            ctx.fillStyle = 'white';
+            ctx.font = '2rem "Space Grotesk", sans-serif';
+            ctx.fillText(`${map.map[c][r].pointText}`, (map.mapSize.width - 45) / 2, map.mapSize.height / 2, 90);
             ctx.closePath();
             
             map.mapPositions.mapX += map.mapSize.width;
